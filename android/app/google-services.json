@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "975757388115",
+    "project_id": "atividade-fb",
+    "storage_bucket": "atividade-fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975757388115:android:3087466094c0846814d9a6",
+        "android_client_info": {
+          "package_name": "com.example.atividade_fb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975757388115-cjp01mj6kg4ilvv8mqhkf32vccrv0dkb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0y5RiJAFztejC51WxhQU-miScTJU2YTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975757388115-cjp01mj6kg4ilvv8mqhkf32vccrv0dkb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
