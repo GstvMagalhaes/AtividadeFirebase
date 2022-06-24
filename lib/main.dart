@@ -1,6 +1,9 @@
 import 'package:atividade_fb/screens/my-home-page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,21 +17,36 @@ void main() async {
         projectId: '975757388115' // NÚMERO DO PROJETO
         ),
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      title: 'RealmX',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.cyan),
+      home: const SplashScreen(),
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSplashScreen(
+      splash: Lottie.asset('assets/images/loading.json'),
+      backgroundColor: Color.fromARGB(255, 24, 24, 24),
+      nextScreen: const MyHomePage(
+        title: '',
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      splashIconSize: 200,
+      duration: 100,
+      splashTransition: SplashTransition.fadeTransition,
+      animationDuration: const Duration(seconds: 3),
     );
   }
 }

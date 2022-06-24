@@ -11,23 +11,19 @@ class Realme extends StatefulWidget {
 
 class _RealmeState extends State<Realme> {
   final List<String> imageList = [
-    "https://files.tecnoblog.net/wp-content/uploads/2021/12/realme-gt-realme-gt-master-edition-14-700x394.jpg",
-    "https://gizmodo.uol.com.br/wp-content/blogs.dir/8/files/2021/02/Photo-2-realme-7-Pro-scaled-e1613074102329.jpg",
-    "https://i.zst.com.br/thumbs/12/12/16/-459710149.jpg",
-    "https://celular.pro.br/wp-content/uploads/2020/11/realme-e-bom.jpg",
-    "https://files.tecnoblog.net/wp-content/uploads/2020/11/realme-7-pro-1.jpg",
+    "assets/images/modelo1.png",
+    "assets/images/modelo2.png",
+    "assets/images/modelo3.png",
+    "assets/images/modelo4.png",
+    "assets/images/modelo5.png",
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 29, 97),
-        title: const Center(
-          child: SizedBox(
-            child: Text("Xiaomi Realme 7i 64GB e 4GB RAM"),
-          ),
-        ),
+        backgroundColor: Colors.purple,
+        title: Text("Xiaomi Realme Photos"),
       ),
       body: Container(
         color: Color.fromARGB(255, 24, 24, 24),
@@ -44,7 +40,7 @@ class _RealmeState extends State<Realme> {
                       child: Stack(
                         fit: StackFit.expand,
                         children: <Widget>[
-                          Image.network(
+                          Image.asset(
                             e,
                             width: 1050,
                             height: 350,
