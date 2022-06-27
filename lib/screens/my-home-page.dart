@@ -1,11 +1,10 @@
 // ignore_for_file: deprecated_member_use, prefer_const_constructors
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
-
-import 'my-home-page-controller.dart';
-import 'realme.dart';
-import 'sing-up.dart';
+import '../controllers/my-home-page-controller.dart';
+import 'realme-page.dart';
+import 'sing-up-page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -16,9 +15,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _controllerHome = MyHomePageController();
-  final _formKey = GlobalKey<FormState>();
-  final _emailEC = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _senhaController = TextEditingController();
+
+  Future login() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _senhaController.text.trim(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _senhaController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 24, 24, 24),
       body: Form(
-        key: _formKey,
+        key: formKey,
         child: Padding(
           padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: ListView(
@@ -63,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextFormField(
-                    controller: _controllerHome.controllerEmail,
+                    controller: _emailController,
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: 'Email'),
                     validator: Validatorless.multiple([
@@ -88,36 +101,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextFormField(
                     keyboardType: TextInputType.text,
                     obscureText: true,
-                    controller: _controllerHome.controllerNome,
+                    controller: _senhaController,
                     validator: Validatorless.required('Senha Obrigatória'),
                     decoration: const InputDecoration(
                         border: InputBorder.none, hintText: 'Senha'),
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: height_var / 30),
-                height: 50,
-                width: width_var,
-                child: RaisedButton(
-                  color: Colors.purple,
-                  child: Text(
-                    'Login',
-                    style: TextStyle(color: Colors.black, fontSize: 22),
+              GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.only(top: height_var / 30),
+                  height: 50,
+                  width: width_var,
+                  child: RaisedButton(
+                    color: Colors.purple,
+                    child: Text(
+                      'Login',
+                      style: TextStyle(color: Colors.black, fontSize: 22),
+                    ),
+                    onPressed: () {
+                      login();
+                    },
                   ),
-                  onPressed: () {
-                    var formValid = _formKey.currentState?.validate() ?? false;
-                    if (formValid) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Realme(),
-                        ),
-                      );
-                    } else {
-                      print('Email invalido');
-                    }
-                  },
                 ),
               ),
               Container(

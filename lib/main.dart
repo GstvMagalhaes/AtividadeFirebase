@@ -5,6 +5,8 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import 'controllers/main-page.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -40,13 +42,11 @@ class SplashScreen extends StatelessWidget {
     return AnimatedSplashScreen(
       splash: Lottie.asset('assets/images/loading.json'),
       backgroundColor: Color.fromARGB(255, 24, 24, 24),
-      nextScreen: const MyHomePage(
-        title: '',
-      ),
+      nextScreen: const MainPage(),
       splashIconSize: 200,
-      duration: 100,
+      duration: 300,
       splashTransition: SplashTransition.fadeTransition,
-      animationDuration: const Duration(seconds: 3),
+      animationDuration: const Duration(seconds: 2),
     );
   }
 }

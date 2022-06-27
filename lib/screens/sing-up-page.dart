@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
 
-import 'my-home-page-controller.dart';
+import '../controllers/my-home-page-controller.dart';
 
 class SingUp extends StatefulWidget {
   SingUp({Key? key}) : super(key: key);
@@ -14,9 +14,6 @@ class SingUp extends StatefulWidget {
 }
 
 class _SingUpState extends State<SingUp> {
-  final _controllerHome = MyHomePageController();
-  final _formKey = GlobalKey<FormState>();
-  final _emailEC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double height_var = MediaQuery.of(context).size.height;
@@ -24,7 +21,6 @@ class _SingUpState extends State<SingUp> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 24, 24, 24),
       body: Form(
-        key: _formKey,
         child: Padding(
           padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: SizedBox(
@@ -88,13 +84,8 @@ class _SingUpState extends State<SingUp> {
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: TextFormField(
-                      controller: _controllerHome.controllerEmail,
                       decoration: InputDecoration(
-                          border: InputBorder.none, hintText: 'Email'),
-                      validator: Validatorless.multiple([
-                        Validatorless.required('E-mail Obrigatório'),
-                        Validatorless.email('E-mail Inválido')
-                      ]),
+                          border: InputBorder.none, hintText: 'Modelo'),
                     ),
                   ),
                 ),
@@ -111,12 +102,9 @@ class _SingUpState extends State<SingUp> {
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: TextFormField(
-                      keyboardType: TextInputType.text,
-                      obscureText: true,
-                      controller: _controllerHome.controllerNome,
-                      validator: Validatorless.required('Senha Obrigatória'),
+                      keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                          border: InputBorder.none, hintText: 'Senha'),
+                          border: InputBorder.none, hintText: 'Ano'),
                     ),
                   ),
                 ),
