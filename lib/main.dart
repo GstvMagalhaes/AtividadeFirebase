@@ -5,7 +5,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import 'controllers/main-page.dart';
+import 'screens/main-page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'RealmX',
+      title: 'Flutter Carousel',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.cyan),
       home: const SplashScreen(),

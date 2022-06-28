@@ -2,7 +2,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
-import '../controllers/my-home-page-controller.dart';
+import '../controllers/my-home-page-service.dart';
+import '../controllers/my-sing-up-page-controller.dart';
 import 'realme-page.dart';
 import 'sing-up-page.dart';
 
@@ -79,10 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     controller: _emailController,
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: 'Email'),
-                    validator: Validatorless.multiple([
-                      Validatorless.required('E-mail Obrigatório'),
-                      Validatorless.email('E-mail Inválido')
-                    ]),
+                    validator: Validatorless.multiple(
+                      [
+                        Validatorless.required('E-mail Obrigatório'),
+                        Validatorless.email('E-mail Inválido')
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -121,6 +124,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: () {
                       login();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Realme(),
+                        ),
+                      );
                     },
                   ),
                 ),

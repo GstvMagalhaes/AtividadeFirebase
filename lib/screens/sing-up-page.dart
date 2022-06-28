@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
 
-import '../controllers/my-home-page-controller.dart';
+import '../controllers/my-home-page-service.dart';
+import '../controllers/my-sing-up-page-controller.dart';
 
 class SingUp extends StatefulWidget {
   SingUp({Key? key}) : super(key: key);
@@ -14,6 +15,21 @@ class SingUp extends StatefulWidget {
 }
 
 class _SingUpState extends State<SingUp> {
+  final _controllerHome = MyHomePageController();
+
+  @override
+  void initState() {
+    print('iniciei my home page');
+    super.initState();
+  }
+
+  //Método disparado ao sair do widget
+  @override
+  void dispose() {
+    print('fechei a home page');
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double height_var = MediaQuery.of(context).size.height;
@@ -66,6 +82,7 @@ class _SingUpState extends State<SingUp> {
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: TextFormField(
+                      controller: _controllerHome.controllerNome,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: 'Nome'),
                     ),
@@ -84,6 +101,7 @@ class _SingUpState extends State<SingUp> {
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: TextFormField(
+                      controller: _controllerHome.controllerModelo,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: 'Modelo'),
                     ),
@@ -102,6 +120,7 @@ class _SingUpState extends State<SingUp> {
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: TextFormField(
+                      controller: _controllerHome.controllerAno,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                           border: InputBorder.none, hintText: 'Ano'),
@@ -118,7 +137,7 @@ class _SingUpState extends State<SingUp> {
                       'Cadastrar-se',
                       style: TextStyle(color: Colors.black, fontSize: 22),
                     ),
-                    onPressed: () {},
+                    onPressed: () => _controllerHome.createCelular(),
                   ),
                 ),
               ],

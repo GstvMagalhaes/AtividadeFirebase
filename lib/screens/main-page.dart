@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/my-home-page.dart';
+import 'my-home-page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -14,13 +14,9 @@ class MainPage extends StatelessWidget {
       body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Realme();
-            } else {
-              return MyHomePage(
-                title: '',
-              );
-            }
+            return const MyHomePage(
+              title: '',
+            );
           }),
     );
   }
