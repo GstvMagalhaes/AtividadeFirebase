@@ -7,7 +7,8 @@ class MyHomePageService {
     await celularFirestore.doc().set({
       'nome': celular['nome'],
       'modelo': celular['modelo'],
-      'ano': celular['ano']
+      'ano': celular['ano'],
+      'url': celular['url']
     });
   }
 }

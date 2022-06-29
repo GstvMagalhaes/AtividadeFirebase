@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import '../controllers/my-home-page-service.dart';
 
 class Realme extends StatefulWidget {
@@ -14,14 +15,6 @@ class Realme extends StatefulWidget {
 }
 
 class _RealmeState extends State<Realme> {
-  final List<String> imageList = [
-    "assets/images/modelo1.png",
-    "assets/images/modelo2.png",
-    "assets/images/modelo3.png",
-    "assets/images/modelo4.png",
-    "assets/images/modelo5.png",
-  ];
-
   final celularFirestore = FirebaseFirestore.instance.collection('celulares');
 
   Stream<QuerySnapshot> buscarCelulares() {
@@ -37,83 +30,83 @@ class _RealmeState extends State<Realme> {
       ),
       body: Container(
         color: Color.fromARGB(255, 24, 24, 24),
-        child: Center(
-          child: CarouselSlider(
-            options: CarouselOptions(
-              enlargeCenterPage: true,
-              enableInfiniteScroll: false,
-              autoPlay: true,
-            ),
-            items: imageList
-                .map(
-                  (e) => ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Stack(
-                      fit: StackFit.expand,
+        child: Column(
+          children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+              stream: buscarCelulares(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case ConnectionState.active:
+                  case ConnectionState.done:
+                    if (snapshot.data!.docs.isEmpty) {
+                      return Center(
+                        child: Text('Nenhum Celular cadastrado.'),
+                      );
+                    }
+                    return Row(
                       children: <Widget>[
-                        StreamBuilder<QuerySnapshot>(
-                          stream: buscarCelulares(),
-                          builder: (context, snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.none:
-                              case ConnectionState.waiting:
-                                return Center(
-                                  child: CircularProgressIndicator(),
+                        Expanded(
+                          child: SizedBox(
+                            height: 500,
+                            child: CarouselSlider.builder(
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index, _) {
+                                final DocumentSnapshot doc =
+                                    snapshot.data!.docs[index];
+                                return Column(
+                                  children: [
+                                    Text(
+                                      doc['nome'],
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.normal,
+                                          fontFamily: 'Open Sans',
+                                          fontSize: 25),
+                                    ),
+                                    Text(
+                                      doc['modelo'],
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle: FontStyle.normal,
+                                          fontFamily: 'Open Sans',
+                                          fontSize: 20),
+                                    ),
+                                    Text(
+                                      doc['ano'],
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
+                                          fontStyle: FontStyle.normal,
+                                          fontFamily: 'Open Sans',
+                                          fontSize: 20),
+                                    ),
+                                    Image(
+                                      image: NetworkImage(doc['url']),
+                                      height: 300,
+                                      width: 300,
+                                    )
+                                  ],
                                 );
-                              case ConnectionState.active:
-                              case ConnectionState.done:
-                                if (snapshot.data!.docs.isEmpty) {
-                                  return Center(
-                                    child: Text('Nenhum Celular cadastrado.'),
-                                  );
-                                }
-                                return ListView.builder(
-                                  itemCount: snapshot.data!.docs.length,
-                                  itemBuilder: (context, index) {
-                                    final DocumentSnapshot doc =
-                                        snapshot.data!.docs[index];
-                                    return Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Text(
-                                            doc['nome'],
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 25),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Text(
-                                            doc['modelo'],
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 25),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Text(
-                                            doc['ano'],
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 25),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                            }
-                          },
+                              },
+                              options: CarouselOptions(
+                                height: 400,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
+                    );
+                }
+              },
+            ),
+          ],
         ),
       ),
     );

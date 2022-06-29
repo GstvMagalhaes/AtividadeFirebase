@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
+import 'package:atividade_fb/screens/realme-page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
@@ -7,14 +8,14 @@ import 'package:validatorless/validatorless.dart';
 import '../controllers/my-home-page-service.dart';
 import '../controllers/my-sing-up-page-controller.dart';
 
-class SingUp extends StatefulWidget {
-  SingUp({Key? key}) : super(key: key);
+class SingIn extends StatefulWidget {
+  SingIn({Key? key}) : super(key: key);
 
   @override
-  State<SingUp> createState() => _SingUpState();
+  State<SingIn> createState() => _SingInState();
 }
 
-class _SingUpState extends State<SingUp> {
+class _SingInState extends State<SingIn> {
   final _controllerHome = MyHomePageController();
 
   @override
@@ -107,9 +108,6 @@ class _SingUpState extends State<SingUp> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
                   margin: EdgeInsets.only(top: height_var / 60),
                   decoration: BoxDecoration(
@@ -128,17 +126,41 @@ class _SingUpState extends State<SingUp> {
                   ),
                 ),
                 Container(
+                  margin: EdgeInsets.only(top: height_var / 60),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: TextFormField(
+                      controller: _controllerHome.controllerUrl,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                          border: InputBorder.none, hintText: 'Url da imagem'),
+                    ),
+                  ),
+                ),
+                Container(
                   margin: EdgeInsets.only(top: height_var / 30),
                   height: 50,
                   width: width_var,
                   child: RaisedButton(
-                    color: Colors.purple,
-                    child: Text(
-                      'Cadastrar-se',
-                      style: TextStyle(color: Colors.black, fontSize: 22),
-                    ),
-                    onPressed: () => _controllerHome.createCelular(),
-                  ),
+                      color: Colors.purple,
+                      child: Text(
+                        'Cadastrar-se',
+                        style: TextStyle(color: Colors.black, fontSize: 22),
+                      ),
+                      onPressed: () {
+                        _controllerHome.createCelular();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Realme(),
+                          ),
+                        );
+                      }),
                 ),
               ],
             ),

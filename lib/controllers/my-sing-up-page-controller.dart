@@ -7,12 +7,14 @@ class MyHomePageController {
   final controllerNome = TextEditingController();
   final controllerModelo = TextEditingController();
   final controllerAno = TextEditingController();
+  final controllerUrl = TextEditingController();
 
   createCelular() async {
     await _serviceHome.createCelular({
       'nome': controllerNome.text,
       'modelo': controllerModelo.text,
-      'ano': controllerAno.text
+      'ano': controllerAno.text,
+      'url': controllerUrl.text
     });
   }
 }

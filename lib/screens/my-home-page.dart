@@ -1,11 +1,14 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors
+// // ignore_for_file: deprecated_member_use, prefer_const_constructors
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:validatorless/validatorless.dart';
 import '../controllers/my-home-page-service.dart';
 import '../controllers/my-sing-up-page-controller.dart';
 import 'realme-page.dart';
-import 'sing-up-page.dart';
+import 'sing-in-page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -21,10 +24,24 @@ class _MyHomePageState extends State<MyHomePage> {
   final _senhaController = TextEditingController();
 
   Future login() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _senhaController.text.trim(),
-    );
+    bool validate = formKey.currentState!.validate();
+    if (validate) {
+      try {
+        var loginResult =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _senhaController.text.trim(),
+        );
+        if (loginResult != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Realme(),
+            ),
+          );
+        }
+      } on FirebaseAuthException catch (e) {}
+    }
   }
 
   @override
@@ -124,12 +141,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: () {
                       login();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Realme(),
-                        ),
-                      );
                     },
                   ),
                 ),
@@ -148,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SingUp(),
+                          builder: (context) => SingIn(),
                         ),
                       );
                     }),
